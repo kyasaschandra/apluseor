@@ -1,14 +1,25 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useAuth } from '@/hooks/useAuth';
+import { EmployeeDashboard } from '@/components/dashboard/EmployeeDashboard';
+import { CompanyDashboard } from '@/components/dashboard/CompanyDashboard';
+import { AdminDashboard } from '@/components/dashboard/AdminDashboard';
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  const { profile } = useAuth();
+
+  const renderDashboard = () => {
+    switch (profile?.role) {
+      case 'EMPLOYEE':
+        return <EmployeeDashboard />;
+      case 'COMPANY':
+        return <CompanyDashboard />;
+      case 'ADMIN':
+        return <AdminDashboard />;
+      default:
+        return <EmployeeDashboard />;
+    }
+  };
+
+  return renderDashboard();
 };
 
 export default Index;
