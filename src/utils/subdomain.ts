@@ -1,6 +1,9 @@
 export type UserType = 'EMPLOYEE' | 'COMPANY' | 'ADMIN';
 
 export const getUserTypeFromSubdomain = (): UserType => {
+  // Temporarily showing admin portal for preview
+  return 'ADMIN';
+  
   const hostname = window.location.hostname;
   
   if (hostname.startsWith('employee.')) {
