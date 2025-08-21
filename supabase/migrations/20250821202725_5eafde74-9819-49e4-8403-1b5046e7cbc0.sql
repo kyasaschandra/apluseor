@@ -1,0 +1,21 @@
+-- Temporarily disable RLS for development
+ALTER TABLE profiles DISABLE ROW LEVEL SECURITY;
+ALTER TABLE employees DISABLE ROW LEVEL SECURITY;
+ALTER TABLE companies DISABLE ROW LEVEL SECURITY;
+ALTER TABLE timesheets DISABLE ROW LEVEL SECURITY;
+ALTER TABLE timesheet_entries DISABLE ROW LEVEL SECURITY;
+ALTER TABLE expenses DISABLE ROW LEVEL SECURITY;
+ALTER TABLE expense_lines DISABLE ROW LEVEL SECURITY;
+ALTER TABLE approvals DISABLE ROW LEVEL SECURITY;
+
+-- Temporarily drop foreign key constraint for development
+ALTER TABLE profiles DROP CONSTRAINT IF EXISTS profiles_user_id_fkey;
+
+-- Create sample profiles for development
+INSERT INTO profiles (id, user_id, first_name, last_name, role, phone) VALUES
+  ('550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440001', 'John', 'Doe', 'EMPLOYEE', '+1-555-0101'),
+  ('550e8400-e29b-41d4-a716-446655440002', '550e8400-e29b-41d4-a716-446655440002', 'Jane', 'Smith', 'EMPLOYEE', '+1-555-0102'),
+  ('550e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440003', 'Bob', 'Wilson', 'EMPLOYEE', '+1-555-0103'),
+  ('550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440004', 'Sarah', 'Johnson', 'COMPANY', '+1-555-0201'),
+  ('550e8400-e29b-41d4-a716-446655440005', '550e8400-e29b-41d4-a716-446655440005', 'Mike', 'Brown', 'COMPANY', '+1-555-0202'),
+  ('550e8400-e29b-41d4-a716-446655440006', '550e8400-e29b-41d4-a716-446655440006', 'Admin', 'User', 'ADMIN', '+1-555-0301');
