@@ -8,6 +8,13 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Timesheets from "./pages/Timesheets";
+import Expenses from "./pages/Expenses";
+import Payslips from "./pages/Payslips";
+import ContractorInvoices from "./pages/ContractorInvoices";
+import Profile from "./pages/Profile";
+import Employees from "./pages/Employees";
+import Approvals from "./pages/Approvals";
+import Reports from "./pages/Reports";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +36,41 @@ const App = () => (
             <Route path="/timesheets" element={
               <AppLayout>
                 <Timesheets />
+              </AppLayout>
+            } />
+            <Route path="/expenses" element={
+              <AppLayout>
+                <Expenses />
+              </AppLayout>
+            } />
+            <Route path="/payslips" element={
+              <AppLayout>
+                <Payslips />
+              </AppLayout>
+            } />
+            <Route path="/contractor-invoices" element={
+              <AppLayout>
+                <ContractorInvoices />
+              </AppLayout>
+            } />
+            <Route path="/profile" element={
+              <AppLayout>
+                <Profile />
+              </AppLayout>
+            } />
+            <Route path="/employees" element={
+              <AppLayout>
+                <Employees />
+              </AppLayout>
+            } />
+            <Route path="/approvals" element={
+              <AppLayout>
+                <Approvals />
+              </AppLayout>
+            } />
+            <Route path="/reports" element={
+              <AppLayout>
+                <Reports />
               </AppLayout>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

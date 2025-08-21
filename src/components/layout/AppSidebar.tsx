@@ -9,6 +9,7 @@ import {
   SidebarMenuItem,
   SidebarHeader,
 } from '@/components/ui/sidebar';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import {
   Home,
@@ -69,8 +70,14 @@ const getMenuItems = (role: string) => {
 
 export function AppSidebar() {
   const { profile } = useAuth();
+  const location = useLocation();
 
   const menuItems = getMenuItems(profile?.role || 'EMPLOYEE');
+
+  const isActive = (url: string) => {
+    if (url === '/') return location.pathname === '/';
+    return location.pathname.startsWith(url);
+  };
 
   return (
     <Sidebar>
@@ -96,10 +103,19 @@ export function AppSidebar() {
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url} className="flex items-center gap-2">
+                    <NavLink 
+                      to={item.url} 
+                      className={({ isActive: navIsActive }) => 
+                        `flex items-center gap-2 ${
+                          navIsActive || isActive(item.url) 
+                            ? 'bg-primary text-primary-foreground' 
+                            : 'hover:bg-muted'
+                        }`
+                      }
+                    >
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
-                    </a>
+                    </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
