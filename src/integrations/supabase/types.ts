@@ -362,6 +362,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      is_admin: {
+        Args: { user_uuid: string }
+        Returns: boolean
+      }
       update_timesheet_total_hours: {
         Args: { timesheet_id: string }
         Returns: undefined
