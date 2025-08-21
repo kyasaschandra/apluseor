@@ -25,53 +25,22 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Mock user data for development - authentication disabled
+  const [user, setUser] = useState<User | null>({ id: '550e8400-e29b-41d4-a716-446655440001' } as User);
+  const [session, setSession] = useState<Session | null>({ user: { id: '550e8400-e29b-41d4-a716-446655440001' } } as Session);
+  const [profile, setProfile] = useState<Profile | null>({
+    id: '550e8400-e29b-41d4-a716-446655440001',
+    user_id: '550e8400-e29b-41d4-a716-446655440001',
+    role: 'EMPLOYEE', // Change this to 'COMPANY' or 'ADMIN' to test different roles
+    first_name: 'John',
+    last_name: 'Doe',
+    phone: '+1-555-0101'
+  });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        if (session?.user) {
-          // Fetch user profile
-          setTimeout(async () => {
-            try {
-              const { data: profileData, error } = await supabase
-                .from('profiles')
-                .select('*')
-                .eq('user_id', session.user.id)
-                .single();
-
-              if (error) throw error;
-              setProfile(profileData);
-            } catch (error) {
-              console.error('Error fetching profile:', error);
-            } finally {
-              setLoading(false);
-            }
-          }, 0);
-        } else {
-          setProfile(null);
-          setLoading(false);
-        }
-      }
-    );
-
-    // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      if (!session) {
-        setLoading(false);
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    // Authentication disabled for development - using mock data
+    console.log('Dev mode: Authentication disabled, using mock profile');
   }, []);
 
   const signIn = async (email: string, password: string) => {
