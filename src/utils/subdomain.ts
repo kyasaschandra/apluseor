@@ -1,9 +1,6 @@
 export type UserType = 'EMPLOYEE' | 'COMPANY' | 'ADMIN';
 
 export const getUserTypeFromSubdomain = (): UserType => {
-  // Temporarily showing admin portal for preview
-  return 'ADMIN';
-  
   const hostname = window.location.hostname;
   
   if (hostname.startsWith('employee.')) {
@@ -14,7 +11,15 @@ export const getUserTypeFromSubdomain = (): UserType => {
     return 'ADMIN';
   }
   
-  // Default to employee for localhost or main domain
+  // Default based on localhost ports for development
+  if (hostname === 'localhost') {
+    const port = window.location.port;
+    if (port === '5174') return 'COMPANY';
+    if (port === '5175') return 'ADMIN';
+    return 'EMPLOYEE'; // Default port 5173
+  }
+  
+  // Default to employee for main domain
   return 'EMPLOYEE';
 };
 

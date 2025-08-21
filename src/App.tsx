@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { AppLayout } from "@/components/layout/AppLayout";
+import Calendar from "./pages/Calendar";
+import Projects from "./pages/Projects";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Timesheets from "./pages/Timesheets";
@@ -52,6 +54,16 @@ const App = () => (
             <Route path="/contractor-invoices" element={
               <AppLayout>
                 <ContractorInvoices />
+              </AppLayout>
+            } />
+            <Route path="/calendar" element={
+              <AppLayout>
+                <Calendar />
+              </AppLayout>
+            } />
+            <Route path="/projects" element={
+              <AppLayout>
+                <Projects />
               </AppLayout>
             } />
             <Route path="/profile" element={

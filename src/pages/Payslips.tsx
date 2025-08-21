@@ -1,48 +1,60 @@
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Download, FileText, Eye } from 'lucide-react';
+import { Download, FileText, Eye, DollarSign, TrendingUp } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/useAuth';
+import { mockPayslips, type Payslip } from '@/data/mockData';
 
 const Payslips = () => {
   const { toast } = useToast();
+  const { profile } = useAuth();
+  const [payslips] = useState<Payslip[]>(mockPayslips);
 
-  // Sample data - in a real app this would come from Supabase
-  const payslips = [
-    {
-      id: '1',
-      period: 'January 2024',
-      payDate: '2024-01-31',
-      grossPay: 5000.00,
-      netPay: 3750.00,
-      deductions: 1250.00,
-      status: 'PAID'
-    },
-    {
-      id: '2',
-      period: 'December 2023',
-      payDate: '2023-12-31',
-      grossPay: 5000.00,
-      netPay: 3750.00,
-      deductions: 1250.00,
-      status: 'PAID'
-    },
-    {
-      id: '3',
-      period: 'November 2023',
-      payDate: '2023-11-30',
-      grossPay: 4800.00,
-      netPay: 3600.00,
-      deductions: 1200.00,
-      status: 'PAID'
+  // Only show payslips for full-time employees
+  if (profile?.employee_type === 'CONTRACTOR') {
+    return (
+      <div className="container mx-auto p-6">
+        <Card>
+          <CardContent className="flex flex-col items-center justify-center py-12">
+            <FileText className="h-12 w-12 text-muted-foreground mb-4" />
+            <h3 className="text-lg font-medium text-foreground mb-2">Payslips Not Available</h3>
+            <p className="text-muted-foreground text-center">
+              Payslips are only available for full-time employees. As a contractor, please check your invoices section.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  const getStatusColor = (status: Payslip['status']): 'default' | 'secondary' | 'outline' | 'destructive' => {
+    switch (status) {
+      case 'PAID':
+        return 'default';
+      case 'PROCESSING':
+        return 'secondary';
+      case 'PENDING':
+        return 'outline';
+      default:
+        return 'secondary';
     }
-  ];
+  };
+
+  const totalEarnings = payslips
+    .filter(p => p.status === 'PAID')
+    .reduce((sum, p) => sum + p.net_pay, 0);
+
+  const pendingAmount = payslips
+    .filter(p => p.status !== 'PAID')
+    .reduce((sum, p) => sum + p.net_pay, 0);
 
   const currentYear = new Date().getFullYear();
-  const ytdGross = payslips.filter(p => p.period.includes(currentYear.toString())).reduce((sum, p) => sum + p.grossPay, 0);
-  const ytdNet = payslips.filter(p => p.period.includes(currentYear.toString())).reduce((sum, p) => sum + p.netPay, 0);
-  const ytdDeductions = payslips.filter(p => p.period.includes(currentYear.toString())).reduce((sum, p) => sum + p.deductions, 0);
+  const ytdGross = payslips.filter(p => p.pay_period_start.includes(currentYear.toString())).reduce((sum, p) => sum + p.gross_pay, 0);
+  const ytdNet = payslips.filter(p => p.pay_period_start.includes(currentYear.toString())).reduce((sum, p) => sum + p.net_pay, 0);
+  const ytdDeductions = payslips.filter(p => p.pay_period_start.includes(currentYear.toString())).reduce((sum, p) => sum + (p.deductions.tax + p.deductions.health_insurance + p.deductions.retirement), 0);
 
   const handleDownload = (payslipId: string, period: string) => {
     toast({
@@ -65,7 +77,7 @@ const Payslips = () => {
         <p className="text-muted-foreground">View and download your salary payslips</p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">YTD Gross Pay</CardTitle>
@@ -82,7 +94,7 @@ const Payslips = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">YTD Net Pay</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">${ytdNet.toLocaleString()}</div>
@@ -95,12 +107,25 @@ const Payslips = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">YTD Deductions</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">${ytdDeductions.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">
               Taxes & benefits
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Pending Amount</CardTitle>
+            <FileText className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">${pendingAmount.toLocaleString()}</div>
+            <p className="text-xs text-muted-foreground">
+              Awaiting payment
             </p>
           </CardContent>
         </Card>
@@ -117,6 +142,7 @@ const Payslips = () => {
               <TableRow>
                 <TableHead>Pay Period</TableHead>
                 <TableHead>Pay Date</TableHead>
+                <TableHead>Hours</TableHead>
                 <TableHead>Gross Pay</TableHead>
                 <TableHead>Deductions</TableHead>
                 <TableHead>Net Pay</TableHead>
@@ -127,13 +153,16 @@ const Payslips = () => {
             <TableBody>
               {payslips.map((payslip) => (
                 <TableRow key={payslip.id}>
-                  <TableCell className="font-medium">{payslip.period}</TableCell>
-                  <TableCell>{payslip.payDate}</TableCell>
-                  <TableCell>${payslip.grossPay.toLocaleString()}</TableCell>
-                  <TableCell>${payslip.deductions.toLocaleString()}</TableCell>
-                  <TableCell className="font-semibold">${payslip.netPay.toLocaleString()}</TableCell>
+                  <TableCell className="font-medium">
+                    {new Date(payslip.pay_period_start).toLocaleDateString()} - {new Date(payslip.pay_period_end).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>{payslip.pay_date ? new Date(payslip.pay_date).toLocaleDateString() : 'Pending'}</TableCell>
+                  <TableCell>{payslip.hours_worked}h</TableCell>
+                  <TableCell>${payslip.gross_pay.toLocaleString()}</TableCell>
+                  <TableCell>${(payslip.deductions.tax + payslip.deductions.health_insurance + payslip.deductions.retirement).toLocaleString()}</TableCell>
+                  <TableCell className="font-semibold">${payslip.net_pay.toLocaleString()}</TableCell>
                   <TableCell>
-                    <Badge variant="default">
+                    <Badge variant={getStatusColor(payslip.status)}>
                       {payslip.status}
                     </Badge>
                   </TableCell>
@@ -142,7 +171,7 @@ const Payslips = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleView(payslip.id, payslip.period)}
+                        onClick={() => handleView(payslip.id, `${new Date(payslip.pay_period_start).toLocaleDateString()} - ${new Date(payslip.pay_period_end).toLocaleDateString()}`)}
                       >
                         <Eye className="h-4 w-4 mr-1" />
                         View
@@ -150,7 +179,8 @@ const Payslips = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleDownload(payslip.id, payslip.period)}
+                        disabled={payslip.status === 'PENDING'}
+                        onClick={() => handleDownload(payslip.id, `${new Date(payslip.pay_period_start).toLocaleDateString()} - ${new Date(payslip.pay_period_end).toLocaleDateString()}`)}
                       >
                         <Download className="h-4 w-4 mr-1" />
                         Download

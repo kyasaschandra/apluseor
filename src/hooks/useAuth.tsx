@@ -18,6 +18,7 @@ interface Profile {
   first_name?: string;
   last_name?: string;
   phone?: string;
+  employee_type?: 'FULLTIME' | 'CONTRACTOR' | 'BOTH';
 }
 
 interface AuthContextType {
@@ -52,7 +53,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     role: 'EMPLOYEE', // Change this to 'COMPANY' or 'ADMIN' to test different roles
     first_name: 'John',
     last_name: 'Doe',
-    phone: '+1-555-0101'
+    phone: '+1-555-0101',
+    employee_type: 'FULLTIME'
   });
   
   const [loading] = useState(false);

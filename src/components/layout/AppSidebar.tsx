@@ -22,9 +22,11 @@ import {
   Building2,
   BarChart3,
   UserCheck,
+  CalendarCheck,
+  FolderOpen,
 } from 'lucide-react';
 
-const getMenuItems = (role: string) => {
+const getMenuItems = (role: string, userType: string, employeeType?: string) => {
   const commonItems = [
     { title: 'Dashboard', url: '/', icon: Home },
   ];
@@ -32,8 +34,14 @@ const getMenuItems = (role: string) => {
   const employeeItems = [
     { title: 'Timesheets', url: '/timesheets', icon: Clock },
     { title: 'Expenses', url: '/expenses', icon: Receipt },
-    { title: 'Payslips', url: '/payslips', icon: FileText },
-    { title: 'Invoices', url: '/contractor-invoices', icon: DollarSign },
+    { title: 'Calendar', url: '/calendar', icon: CalendarCheck },
+    { title: 'Projects', url: '/projects', icon: FolderOpen },
+    ...(employeeType === 'FULLTIME' || employeeType === 'BOTH' 
+      ? [{ title: 'Payslips', url: '/payslips', icon: FileText }] 
+      : []),
+    ...(employeeType === 'CONTRACTOR' || employeeType === 'BOTH' 
+      ? [{ title: 'Invoices', url: '/contractor-invoices', icon: DollarSign }] 
+      : []),
     { title: 'Profile', url: '/profile', icon: UserCheck },
   ];
 
@@ -72,7 +80,7 @@ export function AppSidebar() {
   const { profile } = useAuth();
   const location = useLocation();
 
-  const menuItems = getMenuItems(profile?.role || 'EMPLOYEE');
+  const menuItems = getMenuItems(profile?.role || 'EMPLOYEE', 'EMPLOYEE', profile?.employee_type);
 
   const isActive = (url: string) => {
     if (url === '/') return location.pathname === '/';
