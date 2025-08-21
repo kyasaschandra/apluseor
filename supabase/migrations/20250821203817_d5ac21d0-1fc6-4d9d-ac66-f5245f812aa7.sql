@@ -1,0 +1,21 @@
+-- Drop all foreign key constraints that reference auth.users for development mode
+ALTER TABLE employees DROP CONSTRAINT IF EXISTS employees_user_id_fkey;
+ALTER TABLE approvals DROP CONSTRAINT IF EXISTS approvals_approver_user_id_fkey;
+
+-- Now create sample employees
+INSERT INTO employees (id, user_id, company_id, employee_type, start_date, country, status, tax_meta) VALUES
+  ('770e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440001', '660e8400-e29b-41d4-a716-446655440001', 'FT', '2024-01-15', 'USA', 'ACTIVE', '{"w4_status": "single", "allowances": 1}'),
+  ('770e8400-e29b-41d4-a716-446655440002', '550e8400-e29b-41d4-a716-446655440002', '660e8400-e29b-41d4-a716-446655440001', 'FT', '2024-02-01', 'USA', 'ACTIVE', '{"w4_status": "married", "allowances": 2}'),
+  ('770e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440003', '660e8400-e29b-41d4-a716-446655440002', 'CTR', '2024-03-01', 'UK', 'ACTIVE', '{"tax_code": "1257L"}');
+
+-- Create sample timesheets
+INSERT INTO timesheets (id, employee_id, period_start, period_end, status, total_hours, submitted_at) VALUES
+  ('880e8400-e29b-41d4-a716-446655440001', '770e8400-e29b-41d4-a716-446655440001', '2024-07-29', '2024-08-04', 'MANAGER_APPROVED', 42.0, '2024-08-05 09:00:00+00'),
+  ('880e8400-e29b-41d4-a716-446655440002', '770e8400-e29b-41d4-a716-446655440001', '2024-08-05', '2024-08-11', 'SUBMITTED', 40.0, '2024-08-12 09:00:00+00'),
+  ('880e8400-e29b-41d4-a716-446655440003', '770e8400-e29b-41d4-a716-446655440001', '2024-08-12', '2024-08-18', 'DRAFT', 32.5, null),
+  ('880e8400-e29b-41d4-a716-446655440004', '770e8400-e29b-41d4-a716-446655440002', '2024-07-29', '2024-08-04', 'FINANCE_APPROVED', 20.0, '2024-08-05 10:30:00+00'),
+  ('880e8400-e29b-41d4-a716-446655440005', '770e8400-e29b-41d4-a716-446655440002', '2024-08-05', '2024-08-11', 'SUBMITTED', 18.5, '2024-08-12 10:30:00+00'),
+  ('880e8400-e29b-41d4-a716-446655440006', '770e8400-e29b-41d4-a716-446655440002', '2024-08-12', '2024-08-18', 'DRAFT', 15.0, null),
+  ('880e8400-e29b-41d4-a716-446655440007', '770e8400-e29b-41d4-a716-446655440003', '2024-07-29', '2024-08-04', 'LOCKED', 35.0, '2024-08-05 11:15:00+00'),
+  ('880e8400-e29b-41d4-a716-446655440008', '770e8400-e29b-41d4-a716-446655440003', '2024-08-05', '2024-08-11', 'DRAFT', 40.0, '2024-08-12 11:15:00+00'),
+  ('880e8400-e29b-41d4-a716-446655440009', '770e8400-e29b-41d4-a716-446655440003', '2024-08-12', '2024-08-18', 'SUBMITTED', 38.0, '2024-08-19 09:30:00+00');
