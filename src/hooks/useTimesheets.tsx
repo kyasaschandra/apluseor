@@ -132,10 +132,11 @@ export function useTimesheets() {
 
       if (error) throw error;
 
-      // Update total hours on timesheet
-      const { error: updateError } = await supabase.rpc('update_timesheet_total_hours', {
-        timesheet_id: timesheetId
-      });
+      // Update total hours on timesheet using a raw query
+      const { error: updateError } = await supabase
+        .rpc('update_timesheet_total_hours' as any, {
+          timesheet_id: timesheetId
+        });
 
       if (updateError) console.error('Failed to update total hours:', updateError);
 

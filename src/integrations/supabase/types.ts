@@ -362,7 +362,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      update_timesheet_total_hours: {
+        Args: { timesheet_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       approval_decision: "PENDING" | "APPROVED" | "REJECTED"

@@ -7,6 +7,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { AppLayout } from "@/components/layout/AppLayout";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
+import Timesheets from "./pages/Timesheets";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,11 @@ const App = () => (
             <Route path="/" element={
               <AppLayout>
                 <Index />
+              </AppLayout>
+            } />
+            <Route path="/timesheets" element={
+              <AppLayout>
+                <Timesheets />
               </AppLayout>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
