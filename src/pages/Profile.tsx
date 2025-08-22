@@ -134,6 +134,15 @@ const Profile = () => {
                     disabled={!isEditing}
                   />
                 </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="address">Address</Label>
+                  <Input
+                    id="address"
+                    defaultValue={profile?.address || ''}
+                    disabled={!isEditing}
+                  />
+                </div>
 
                 {isEditing && (
                   <Button type="submit">
