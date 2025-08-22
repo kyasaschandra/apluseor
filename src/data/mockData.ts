@@ -342,6 +342,10 @@ export interface Employee {
   manager_id?: string;
   phone: string;
   address: string;
+  city: string;
+  state: string;
+  country: string;
+  zip_code: string;
   emergency_contact: {
     name: string;
     phone: string;
@@ -373,7 +377,11 @@ export const mockEmployees: Employee[] = [
     salary: 156000,
     position: 'Senior Full Stack Developer',
     phone: '+1-555-0101',
-    address: '123 Main St, Palo Alto, CA 94301',
+    address: '123 Main St',
+    city: 'Palo Alto',
+    state: 'CA',
+    country: 'USA',
+    zip_code: '94301',
     emergency_contact: {
       name: 'Jane Doe',
       phone: '+1-555-0102',
@@ -402,7 +410,11 @@ export const mockEmployees: Employee[] = [
     salary: 198000,
     position: 'Engineering Manager',
     phone: '+1-555-0201',
-    address: '456 Oak Ave, Mountain View, CA 94041',
+    address: '456 Oak Ave',
+    city: 'Mountain View',
+    state: 'CA',
+    country: 'USA',
+    zip_code: '94041',
     emergency_contact: {
       name: 'Michael Wilson',
       phone: '+1-555-0202',
@@ -430,7 +442,11 @@ export const mockEmployees: Employee[] = [
     hourly_rate: 85,
     position: 'Senior UI/UX Designer',
     phone: '+1-555-0301',
-    address: '789 Creative St, Austin, TX 78701',
+    address: '789 Creative St',
+    city: 'Austin',
+    state: 'TX',
+    country: 'USA',
+    zip_code: '78701',
     emergency_contact: {
       name: 'Lisa Chen',
       phone: '+1-555-0302',
@@ -454,7 +470,11 @@ export const mockEmployees: Employee[] = [
     salary: 183000,
     position: 'Creative Director',
     phone: '+1-555-0401',
-    address: '321 Design Blvd, Austin, TX 78702',
+    address: '321 Design Blvd',
+    city: 'Austin',
+    state: 'TX',
+    country: 'USA',
+    zip_code: '78702',
     emergency_contact: {
       name: 'Carlos Rodriguez',
       phone: '+1-555-0402',
@@ -483,7 +503,11 @@ export const mockEmployees: Employee[] = [
     salary: 150000,
     position: 'Digital Marketing Specialist',
     phone: '+1-555-0501',
-    address: '567 Marketing Ave, New York, NY 10001',
+    address: '567 Marketing Ave',
+    city: 'New York',
+    state: 'NY',
+    country: 'USA',
+    zip_code: '10001',
     emergency_contact: {
       name: 'Jennifer Kim',
       phone: '+1-555-0502',
@@ -512,7 +536,11 @@ export const mockEmployees: Employee[] = [
     salary: 260000,
     position: 'System Administrator',
     phone: '+1-555-ADMIN-01',
-    address: '999 Admin Plaza, San Francisco, CA 94105',
+    address: '999 Admin Plaza',
+    city: 'San Francisco',
+    state: 'CA',
+    country: 'USA',
+    zip_code: '94105',
     emergency_contact: {
       name: 'Robert Foster',
       phone: '+1-555-ADMIN-02',

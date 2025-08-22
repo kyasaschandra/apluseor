@@ -19,6 +19,10 @@ interface Profile {
   last_name?: string;
   phone?: string;
   address?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  zip_code?: string;
   employee_type?: 'FULLTIME' | 'CONTRACTOR' | 'BOTH';
 }
 
@@ -55,7 +59,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     first_name: 'John',
     last_name: 'Doe',
     phone: '+1-555-0101',
-    address: '123 Main St, Palo Alto, CA 94301',
+    address: '123 Main St',
+    city: 'Palo Alto',
+    state: 'CA',
+    country: 'USA',
+    zip_code: '94301',
     employee_type: 'FULLTIME'
   });
   
