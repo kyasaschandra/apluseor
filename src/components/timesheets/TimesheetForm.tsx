@@ -29,8 +29,6 @@ export function TimesheetForm({ timesheetId, onClose }: TimesheetFormProps) {
         hours: Number(data.hours),
         overtime_hours: Number(data.overtime_hours) || 0,
         notes: data.notes || '',
-        clock_in_time: data.clock_in_time || '',
-        clock_out_time: data.clock_out_time || '',
       }
     });
 
@@ -74,25 +72,6 @@ export function TimesheetForm({ timesheetId, onClose }: TimesheetFormProps) {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="clock_in_time">Clock In Time</Label>
-          <Input
-            id="clock_in_time"
-            type="time"
-            {...register('clock_in_time')}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="clock_out_time">Clock Out Time</Label>
-          <Input
-            id="clock_out_time"
-            type="time"
-            {...register('clock_out_time')}
-          />
-        </div>
-      </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">

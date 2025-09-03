@@ -73,8 +73,6 @@ export interface TimesheetEntry {
   hours: number;
   overtime_hours?: number;
   notes?: string;
-  clock_in_time?: string;
-  clock_out_time?: string;
 }
 
 export interface Timesheet {
@@ -105,9 +103,7 @@ export const mockTimesheetEntries: TimesheetEntry[] = [
     task: 'Frontend Development - Product Pages',
     hours: 8,
     overtime_hours: 0,
-    notes: 'Implemented responsive product grid and detail pages',
-    clock_in_time: '09:00',
-    clock_out_time: '17:00'
+    notes: 'Implemented responsive product grid and detail pages'
   },
   {
     id: 'te2',
@@ -117,9 +113,7 @@ export const mockTimesheetEntries: TimesheetEntry[] = [
     task: 'API Integration - Payment Gateway',
     hours: 7,
     overtime_hours: 1,
-    notes: 'Integrated Stripe payment system, debugging checkout flow',
-    clock_in_time: '09:00',
-    clock_out_time: '17:00'
+    notes: 'Integrated Stripe payment system, debugging checkout flow'
   },
   {
     id: 'te3',
@@ -129,9 +123,7 @@ export const mockTimesheetEntries: TimesheetEntry[] = [
     task: 'User Authentication Module',
     hours: 8,
     overtime_hours: 0,
-    notes: 'Developed login/register screens and JWT implementation',
-    clock_in_time: '09:00',
-    clock_out_time: '17:00'
+    notes: 'Developed login/register screens and JWT implementation'
   },
   
   // John Doe (emp1) - Previous Week
@@ -143,9 +135,7 @@ export const mockTimesheetEntries: TimesheetEntry[] = [
     task: 'Database Schema Design',
     hours: 8,
     overtime_hours: 0,
-    notes: 'Designed product catalog and user management tables',
-    clock_in_time: '09:00',
-    clock_out_time: '17:00'
+    notes: 'Designed product catalog and user management tables'
   },
   {
     id: 'te5',
@@ -155,9 +145,7 @@ export const mockTimesheetEntries: TimesheetEntry[] = [
     task: 'Backend API Development',
     hours: 7.5,
     overtime_hours: 0.5,
-    notes: 'Created REST endpoints for product management',
-    clock_in_time: '09:00',
-    clock_out_time: '17:00'
+    notes: 'Created REST endpoints for product management'
   },
   {
     id: 'te6',
@@ -167,9 +155,7 @@ export const mockTimesheetEntries: TimesheetEntry[] = [
     task: 'Project Setup and Architecture',
     hours: 6,
     overtime_hours: 0,
-    notes: 'Set up React Native project structure and navigation',
-    clock_in_time: '10:00',
-    clock_out_time: '16:00'
+    notes: 'Set up React Native project structure and navigation'
   },
 
   // Alex Chen (emp3) - Design Studio Pro - Current Week
@@ -181,9 +167,7 @@ export const mockTimesheetEntries: TimesheetEntry[] = [
     task: 'Wireframe Creation',
     hours: 8,
     overtime_hours: 0,
-    notes: 'Created low-fi wireframes for all main pages',
-    clock_in_time: '09:30',
-    clock_out_time: '17:30'
+    notes: 'Created low-fi wireframes for all main pages'
   },
   {
     id: 'te8',
@@ -193,9 +177,7 @@ export const mockTimesheetEntries: TimesheetEntry[] = [
     task: 'Logo Design Iterations',
     hours: 7,
     overtime_hours: 0,
-    notes: 'Developed 5 logo concepts based on client feedback',
-    clock_in_time: '10:00',
-    clock_out_time: '17:00'
+    notes: 'Developed 5 logo concepts based on client feedback'
   },
   {
     id: 'te9',
@@ -205,9 +187,7 @@ export const mockTimesheetEntries: TimesheetEntry[] = [
     task: 'High-fidelity Mockups',
     hours: 8,
     overtime_hours: 1,
-    notes: 'Created detailed mockups for homepage and product pages',
-    clock_in_time: '09:30',
-    clock_out_time: '18:30'
+    notes: 'Created detailed mockups for homepage and product pages'
   },
 
   // David Kim (emp5) - Global Marketing - Current Week
@@ -219,9 +199,7 @@ export const mockTimesheetEntries: TimesheetEntry[] = [
     task: 'Campaign Strategy Development',
     hours: 8,
     overtime_hours: 0,
-    notes: 'Analyzed target audience and developed multi-channel strategy',
-    clock_in_time: '09:00',
-    clock_out_time: '17:00'
+    notes: 'Analyzed target audience and developed multi-channel strategy'
   },
   {
     id: 'te11',
@@ -231,9 +209,7 @@ export const mockTimesheetEntries: TimesheetEntry[] = [
     task: 'Keyword Research and Analysis',
     hours: 6,
     overtime_hours: 0,
-    notes: 'Conducted comprehensive keyword research for target markets',
-    clock_in_time: '10:00',
-    clock_out_time: '16:00'
+    notes: 'Conducted comprehensive keyword research for target markets'
   },
   {
     id: 'te12',
@@ -243,9 +219,7 @@ export const mockTimesheetEntries: TimesheetEntry[] = [
     task: 'Content Creation and Ad Copy',
     hours: 7.5,
     overtime_hours: 0.5,
-    notes: 'Wrote ad copy for Google Ads and social media campaigns',
-    clock_in_time: '09:00',
-    clock_out_time: '17:00'
+    notes: 'Wrote ad copy for Google Ads and social media campaigns'
   }
 ];
 
